@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crackers</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    {% include 'nav.html' %} 
+    <div class="container" style="margin-top: 100px;">
+        <h1>Crackers Upload</h1>
+
+        {% if error_message %}
+        <div class="alert alert-danger" role="alert">
+            {{ error_message }}
+        </div>
+        {% endif %}
+        
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="crackerName" class="form-label">Name of the crackers</label>
+                <input type="text" class="form-control" id="crackerName" name="crackerName" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="crackerImage" class="form-label">Upload Image</label>
+                <input type="file" class="form-control" id="crackerImage" name="crackerImage" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

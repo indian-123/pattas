@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crackers Upload</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+    {% include 'nav.html' %} 
+    <div class="container">
+        {% if success %}
+        <div class="alert alert-success" role="alert">
+            {{ success }}
+        </div>
+        {% endif %}
+        {% if error_message %}
+        <div class="alert alert-danger" role="alert">
+            {{ error_message }}
+        </div>
+        {% endif %}
+        <h1>Similar Crackers Upload</h1>
+        <form method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="cracker_type">Cracker Type</label>
+                <select class="form-control" id="cracker_type" name="cracker_type">
+                    <option value="" sel>select the crackers</option>
+                    {% for cracker_name in obj %}
+                        <option value="{{ cracker_name }}">{{ cracker_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="image">Upload Image</label>
+                <input type="file" class="form-control-file" id="image" name="image">
+            </div>
+            <div class="form-group">
+                <label for="similar_name">Similar Name</label>
+                <input type="text" class="form-control" id="similar_name" name="similar_name">
+            </div>
+            <div class="form-group">
+                <label for="actual_price">Actual Price</label>
+                <input type="text" class="form-control" id="actual_price" name="actual_price">
+            </div>
+            <div class="form-group">
+                <label for="discount">Discount</label>
+                <input type="text" class="form-control" id="discount" name="discount_price">
+            </div>
+            <div class="form-group">
+                <label for="content">Content</label>
+                <input type="text" class="form-control" id="content" name="content">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

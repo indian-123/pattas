@@ -1,0 +1,136 @@
+{% block content%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .order-details {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .order-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .order-header h2 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .order-status {
+            font-size: 16px;
+        }
+
+        .order-details img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .order-details .order-info {
+            margin-bottom: 20px;
+        }
+
+        .order-details .order-info p {
+            margin-bottom: 10px;
+        }
+
+        .order-details .order-info .label {
+            font-weight: bold;
+        }
+
+        .order-details .delivery-info {
+            margin-bottom: 20px;
+        }
+
+        .order-details .delivery-info p {
+            margin-bottom: 10px;
+        }
+
+        .order-details .delivery-info .label {
+            font-weight: bold;
+        }
+
+        .order-details .delivery-info .progress {
+            height: 10px;
+            margin-bottom: 10px;
+        }
+
+        .order-details .delivery-info .progress .progress-bar {
+            background-color: #007bff;
+        }
+
+        .order-details .delivery-info .progress .progress-bar-animating {
+            animation: progressAnimation 3s linear infinite;
+        }
+
+        .order-details .delivery-info .progress .progress-bar-animated {
+            animation: progressAnimation 3s linear infinite;
+        }
+
+        @keyframes progressAnimation {
+            0% {
+                width: 0;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="order-details">
+            <div class="order-header">
+                <h2>Order #123456</h2>
+                <span class="order-status">Delivered</span>
+            </div>
+            
+            <div class="order-info">
+                {% for i in order%}
+                <p><img src="{{i.image.url}}" alt="Order Image" style="height: 70px;width: 100px;"></p>
+                <p><span class="label">Product:</span> {{i.product_name}}</p>
+                <p><span class="label">Price:</span> $99.99</p>
+                <p><span class="label">Quantity:</span> {{i.quantitity}}</p>
+                <p><span class="label">Total:</span> $99.99</p><hr>
+                {%endfor%}
+                <hr>
+            </div>
+            <div class="delivery-info">
+                <p><span class="label">Delivery Address:</span> 123 Main St, City, State</p>
+                <p><span class="label">Delivery Date:</span> July 11, 2023</p>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p><i class="fas fa-check-circle"></i> Delivered</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+</html>
+{%endblock%}

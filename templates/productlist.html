@@ -1,0 +1,163 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom CSS for premium look */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 2px solid #dddddd;
+        }
+        
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #dddddd;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+        }
+        
+        tr:hover {
+            background-color: #f9f9f9;
+            transition: background-color 0.3s ease;
+        }
+        
+        .discount {
+            color: red;
+            transition: color 0.3s ease;
+        }
+        
+        .amount, .total {
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        
+        .quantity {
+            width: 60px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .quantity:focus {
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+        }
+        th{
+            color: red;
+        }
+        table{border: .5px solid yellow;}
+    </style>
+</head>
+<body onload="calculateTotals()">
+    {% include 'nav.html' %} 
+    <div class="container">
+        <h1>Product List</h1>
+        <form action="{% url 'add_to_cart' %}" method="POST">
+            {% csrf_token %}
+        <table class="stripped">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Product Name</th>
+                    <th>Content</th>
+                    <th>Actual Price</th>
+                    <th>Discount OFF</th>
+                    <th>Amount</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>ADD-TO CART</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in productlist %}
+                    <tr>
+                        <td><img src="{{i.image.url}}" alt="Product Image" style="width: 70px;height: 50px;border-radius: 3px; cursor: pointer;" onclick="showImage('{{i.image.url}}')"></td>
+                        <td style="color: green;">{{i.similarname}}</td>
+                        <td>{{i.content}}</td>
+                        <td>₹{{i.actual_price}}</td>
+                        <td class="discount">{{i.discount_price}}% off</td>
+                        <td class="amount">₹0.00</td>
+                        <td><input type="number" class="quantity" min="1" value="1" style="width: 60px;" oninput="calculateTotal(this)"></td>
+                        <td class="total" style="color: blue;">₹0.00</td>
+                        <td>
+                            <input type="hidden" name="product_id" value="{{ i.id }}">
+                            <input type="hidden" name="image" value="{{i.image.url}}"   >
+                            <input type="hidden" name="product_name" value="{{ i.similarname }}">                       
+                            <input type="hidden" name="product_price" value="{{ i.actual_price }}">
+                            <input type="hidden" name="product_discount" value="{{ i.discount_price }}">
+                            <input type="hidden" value="{{user.username}}" name="username">
+                            <input type="submit" class="btn btn-danger" value="ADD-TO CART">
+                        </td>
+            
+                    </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+        </form>
+    </div>
+
+
+    <script>
+        function calculateTotals() {
+            const rows = document.querySelectorAll("tbody tr");
+            rows.forEach(row => {
+                const actualPrice = parseFloat(row.querySelector("td:nth-child(4)").textContent.replace('₹', ''));
+                const discountPercentage = parseFloat(row.querySelector(".discount").textContent.replace('% off', ''));
+                const quantity = parseInt(row.querySelector(".quantity").value);
+                
+                const discountedAmount = actualPrice * (1 - discountPercentage / 100);
+                const total = discountedAmount * quantity;
+                
+                row.querySelector(".amount").textContent = "₹" + discountedAmount.toFixed(2);
+                row.querySelector(".total").textContent = "₹" + total.toFixed(2);
+            });
+        }
+
+        function calculateTotal(input) {
+            const row = input.closest("tr");
+            const actualPrice = parseFloat(row.querySelector("td:nth-child(4)").textContent.replace('₹', ''));
+            const discountPercentage = parseFloat(row.querySelector(".discount").textContent.replace('% off', ''));
+            const quantity = parseInt(row.querySelector(".quantity").value);
+            
+            const discountedAmount = actualPrice * (1 - discountPercentage / 100);
+            const total = discountedAmount * quantity;
+            
+            row.querySelector(".amount").textContent = "₹" + discountedAmount.toFixed(2);
+            row.querySelector(".total").textContent = "₹" + total.toFixed(2);
+        }
+        function showImage(imageUrl) {
+        // Open a new window or popup to display the larger image
+        window.open(imageUrl);
+    }
+    </script>
+</body>
+</html>
+{% endblock %}

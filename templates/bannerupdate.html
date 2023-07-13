@@ -1,0 +1,78 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Banner</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .banner-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .banner-card {
+            width: 300px;
+            margin-right: 80px;
+        }
+
+        .banner-image {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .update-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .update-button:hover {
+            background-color: #0056b3;
+        }
+
+        .file-input {
+            display: inline-block;
+            opacity: 0;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    {% include 'nav.html' %} 
+    <div class="container">
+        <center><h1>Banner</h1></center>
+
+        <div class="banner-container" style="margin-top: 70px;">
+            {% for banner in banners %}
+            <div class="banner-card">
+                <img src="{{ banner.slideimage.url }}" class="banner-image" alt="Banner">
+                <div class="card-body">
+                    <h5 class="card-title">Banner</h5>
+                    <p class="card-text">UPDATE THE IMAGE</p>
+                    <form action="{% url 'bannerupdate' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <label for="{{ banner.id }}" class="update-button">Choose Image</label>
+                        <input type="file" name="{{ banner.id }}" id="{{ banner.id }}" accept="image/*" class="file-input">
+                        <button type="submit" class="update-button">Update</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+{% endblock %}

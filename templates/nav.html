@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
+    <style>
+        /* styles.css */
+        .header {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 9999;
+            background-color: #6e5e5e;
+            padding: 10px;
+        }
+
+        .header img {
+            height: 50px;
+            width: 70px;
+        }
+
+        .header .navbar {
+            margin-left: auto;
+        }
+
+        .header .navbar .nav-item {
+            margin: 0 10px;
+        }
+
+        .header .navbar .nav-link {
+            text-decoration: none;
+            color: #0c0101;
+            font-family: Arial, sans-serif;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .header .navbar .nav-link:hover {
+            color: #ff8800;
+            background-color: #22e2d9;
+            border-radius: 4px;
+            padding: 5px 10px;
+        }
+
+        /* Change the background color of the navbar-toggler-icon */
+        .header .navbar-toggler-icon {
+            background-color: #fa0c0c;
+        }
+
+        /* Change the color of the navbar-toggler-icon when toggled */
+        .header .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
+            background-color: #18d7dd;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="header" class="header">
+        <img src="{% static 'image/logo.jpg' %}" alt="Logo" style="border-radius: 50%;">
+        <nav class="navbar navbar-expand-md">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                    {% if yes %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'admins' %}">Admin</a></li>
+                    {%endif%}
+                    <li class="nav-item"><a class="nav-link" href="{%url 'mycart'%}">MY-CART</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'order' %}">YOUR ORDERS</a></li>
+                    <li class="nav-item"><a class="nav-link" href="About.html">About Us</a></li>
+                   
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link ">
+                                {{ user.username }}
+                            </a></li>
+                            <li class="nav-item"><a href="{% url 'logout' %}" style="text-decoration: none;"
+                                class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">Sign
+                                Out</a></li>
+                           
+                                
+                           
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+</body>
+</html>

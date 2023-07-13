@@ -1,0 +1,123 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Address</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f8f8;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: none;
+        }
+        
+        .address-details {
+            padding: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            font-weight: bold;
+        }
+        
+        .form-group span {
+            display: block;
+            margin-top: 5px;
+        }
+        
+        .edit-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .edit-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Your Address</h1>
+        {% if add %}
+        {% for address in add %}
+        <div class="card">
+            <div class="address-details">
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Name:</label>
+                    <span>{{ address.name }}</span>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-map-marker-alt"></i> State:</label>
+                    <span>{{ address.state }}</span>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-envelope"></i> Email:</label>
+                    <span>{{ address.email }}</span>
+                </div>
+                <div class="form-group">
+                    <label><i class="fab fa-whatsapp"></i> WhatsApp Number:</label>
+                    <span>{{ address.whatsapp }}</span>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-mobile-alt"></i> Mobile Number:</label>
+                    <span>{{ address.mobile }}</span>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-home"></i> Address:</label>
+                    <span>{{ address.address }}</span>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-map-marker-alt"></i> Landmark:</label>
+                    <span>{{ address.landmark }}</span>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-map-pin"></i> Pincode:</label>
+                    <span>{{ address.pincode }}</span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="card">
+            <div class="address-details">
+                <center><a href="{% url 'address' %}">Add Address</a></center>
+            </div>
+        </div>
+        {% endif %}
+        <div class="edit-link">
+            <a href="{% url 'address' %}">Add Address</a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <!-- Font Awesome JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+</body>
+</html>
+{% endblock %}

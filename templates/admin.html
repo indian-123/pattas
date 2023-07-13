@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 100px;
+        }
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    {% include 'nav.html' %} 
+    <div class="container">
+        <h1>Welcome, Admin</h1>
+        <div class="row mt-5">
+            <div class="col-sm-4 offset-sm-4">
+                <a href="{% url 'uploadcrackers' %}" class="btn btn-primary btn-block">Crackers Upload</a>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-sm-4 offset-sm-4">
+                <a href="{% url 'uploadsimilarcrackers' %}" class="btn btn-primary btn-block">Subcracker Upload</a>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-sm-4 offset-sm-4">
+                <a href="{% url 'bannerupdate' %}" class="btn btn-primary btn-block">Banner Update</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

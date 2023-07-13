@@ -1,0 +1,164 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sky High Crackers</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
+
+    <!-- Custom CSS -->
+    <style>
+
+        #banner img {
+            max-height: 300px;
+        }
+
+        .content-wrapper {
+            margin-top: 20px;
+        }
+
+        .card {
+            height: 100%;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-title {
+            margin-top: 10px;
+            text-align: center;
+            font-weight: bold;
+            color: #333;
+            position: relative;
+        }
+
+        .card-title {
+            text-decoration: none;
+        }
+
+        .category-heading {
+            margin-bottom: 30px;
+            font-size: 54px;
+            color: #333;
+            animation-name: color-change;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes color-change {
+            0% {
+                color: #f31111;
+            }
+
+            50% {
+                color: #ff8800;
+            }
+
+            100% {
+                color: #333;
+            }
+        }
+
+        .category-card:nth-child(1) {
+            background-color: #f10bf1;
+        }
+
+        .category-card:nth-child(2) {
+            background-color: #f0250a;
+        }
+
+        .category-card:nth-child(3) {
+            background-color: #f09f08;
+        }
+
+        .footer {
+            background-color: #f8f9fa;
+            color: #333;
+            padding: 20px 0;
+        }
+
+        .footer .container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .footer .text-muted {
+            font-size: 14px;
+        }
+        .carousel-item{
+    min-height: 280px;
+}
+    </style>
+</head>
+<body>
+    {% include 'nav.html' %} 
+    <div id="container" style="margin-top: 100px;overflow: hidden;">
+        <hr />
+        <div class="slideshow-container">
+            {% for slid in slide %}
+                <div class="slide" style="width: 1000px;">
+                    <img src="{{ slid.slideimage.url }}" alt="Image {{ forloop.counter }}" style="margin:0 30px;width: 1300px;height: 500px;border-radius: 20px;">
+                </div>
+            {% endfor %}
+        </div>
+        <hr />
+
+        <div class="container content-wrapper">
+            <center>
+                <h1 class="category-heading">CATEGORIES</h1>
+            </center>
+            <div class="row">
+                {% for pattas in crackers %}
+                <div class="col-md-4">
+                    <div class="card">
+                        <a href="crackers/{{ pattas.name }}">
+                            <img src="{{ pattas.image.url }}" class="card-img-top" alt="Ground Chakaar">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ pattas.name }}</h5>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% include "aboutfeutures.html" %}
+                       
+    <footer class="footer mt-auto py-3">
+        <div class="container text-center">
+            <span class="text-muted">Sky High Crackers &copy; 2023. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.min.js"></script>
+    <script>
+        var slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            var slides = document.getElementsByClassName("slide");
+            for (var i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {
+                slideIndex = 1;
+            }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 2000); // Change slide every 2 seconds (adjust as needed)
+        }
+    </script>
+</body>
+</html>
+{% endblock %}

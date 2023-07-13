@@ -1,0 +1,76 @@
+<!-- email_templates/order_confirmation.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS styles for the email */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f8f8;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        p {
+            margin-bottom: 10px;
+        }
+        
+        .bold {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-check-circle"></i> Order Confirmation</h1>
+        <p><span class="bold">Hi {{ user.username }},</span></p>
+        <p>Your order has been confirmed with the following details:</p>
+        
+        <p><span class="bold">Product Name:</span> {{ product_name }}</p>
+        <p><span class="bold">Total Amount:</span> ₹{{ total_amount }}</p>
+        
+        <p><span class="bold">Shipping Address:</span></p>
+        <p>
+            {{ address.name }}<br>
+            {{ address.address }}<br>
+            {{ address.landmark }}<br>
+            {{ address.city }}, {{ address.state }}<br>
+            {{ address.pincode }}
+        </p>
+        
+        <p class="text-center">Thank you for your order!</p>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <!-- Font Awesome JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+</body>
+</html>

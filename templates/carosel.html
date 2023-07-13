@@ -1,0 +1,116 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sky High Crackers</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
+
+    <!-- Custom CSS -->
+    <style>
+
+    </style>
+</head>
+<body>
+    {% include 'nav.html' %} 
+    <div id="container">
+        {% include 'nav.html' %} 
+
+        <hr />
+        <div class="container-md" style="margin-right: 400px;">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel" style="width: 120%; height: 400px; margin-right: 400px;">
+                <!-- Carousel indicators -->
+                <ol class="carousel-indicators">
+                    {% for slid in slide %}
+                    <li data-target="#myCarousel" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+                    {% endfor %}
+                </ol>
+                
+                <!-- Wrapper for carousel items -->
+                <div class="carousel-inner" style="width: 100%; padding: 60px; height: 400px; margin-top: 30px;">
+                    {% for slid in slide %}
+                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <img src="{{ slid.slideimage.url }}" class="d-block w-100" alt="Slide {{ forloop.counter }}" style="width: 100%;border-radius: 20px;">
+                    </div>
+                    {% endfor %}
+                </div>
+        
+                <!-- Carousel controls -->
+                <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+        <hr />
+
+        <div class="container content-wrapper">
+            <center>
+                <h1 class="category-heading">CATEGORIES</h1>
+            </center>
+            
+            <div class="row">
+                {% for pattas in cracker %}
+                <div class="col-md-4">
+                    <div class="card">
+                        <a href="crackers/{{pattas.name}}">
+                            <img src="{{ pattas.image.url }}" class="card-img-top" alt="Ground Chakaar">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ pattas.name }}</h5>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% include "aboutfeutures.html" %}
+                       
+    <footer class="footer mt-auto py-3">
+        <div class="container text-center">
+            <span class="text-muted">Sky High Crackers &copy; 2023. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.min.js"></script>
+    <script>
+        var carousel = document.getElementById('myCarousel');
+        var carouselItems = carousel.querySelectorAll('.carousel-item');
+        var totalItems = carouselItems.length;
+        var currentIndex = 0;
+        var prevBtn = document.querySelector('.carousel-control-prev');
+        var nextBtn = document.querySelector('.carousel-control-next');
+
+        prevBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+            showPreviousItem();
+        });
+
+        nextBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+            showNextItem();
+        });
+
+        function showPreviousItem() {
+            carouselItems[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+            carouselItems[currentIndex].classList.add('active');
+        }
+
+        function showNextItem() {
+            carouselItems[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % totalItems;
+            carouselItems[currentIndex].classList.add('active');
+        }
+    </script>
+</body>
+</html>
+{% endblock %}
